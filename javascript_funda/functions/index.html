@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Functions: Task 1</title>
+    <style>
+      p {
+        color: purple;
+        margin: 0.5em 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+
+  <body>
+
+    <section class="preview">
+
+
+
+    </section>
+
+  </body>
+  <script>
+    const names = ['Chris', 'Li Kang', 'Anne', 'Francesca', 'Mustafa', 'Tina', 'Bert', 'Jada', "Anu"]
+    const para = document.createElement('p');
+
+    // Function 1 test - https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Functions
+    // // Add your code here
+    // function chooseName(names) {
+    //     var index = Math.floor(Math.random() * names.length);
+    //     para.textContent = names[index]
+    // }
+
+    // chooseName(names)
+
+    // Function 3 test - https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Functions
+
+    // var number;
+    // function getRandomNumber(min, max) {
+    //     number = Math.floor(Math.random() * (max - min + 1) + min);
+    //     return number;
+    // }
+
+    // function chooseName(names) {
+    //     var index = getRandomNumber(2, 6);
+    //     para.textContent = names[index];
+    // }
+
+    // chooseName(names)
+
+    // Function  4 test
+
+    const shortNames = names.filter((name) => (name.length < 4));
+    para.textContent = shortNames;
+
+    // Don't edit the code below here!
+
+    const section = document.querySelector('section');
+
+    section.appendChild(para);
+  </script>
+
+</html>
