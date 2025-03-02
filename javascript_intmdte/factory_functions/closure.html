@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./closure.js"></script>
+</head>
+
+<body>
+    <script>
+        // function outer() {
+        //     const outerVar = "Hey I am the outer var";
+
+        //     function inner() {
+        //         const innerVar = "Hey I am an inner var";
+
+        //         console.log(innerVar);
+        //         console.log(outerVar);
+        //     }
+
+        //     return inner;
+        // }
+
+        // const innerFn = outer();
+        // innerFn();
+
+        function createGreeting(greeting = "") {
+            const myGreet = greeting.toUpperCase();
+            return function (name) {
+                return `${myGreet} ${name}`;
+            };
+        }
+
+        const sayHello = createGreeting('hello');
+        const sayHey = createGreeting('hey');
+
+        console.log(sayHello('Anuvind'));
+        console.log(sayHey('Anuvind'));
+
+    </script>
+</body>
+
+</html>
