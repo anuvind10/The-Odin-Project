@@ -1,0 +1,30 @@
+body {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* #dropdown {
+} */
+
+#dropdown-options {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: 300ms ease-in-out;
+  > div {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+#dropdown-options.visible {
+  grid-template-rows: 1fr;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}

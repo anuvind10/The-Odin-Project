@@ -1,0 +1,83 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#carousel-container {
+  width: 1000px;
+  height: 400px;
+  display: flex;
+  box-shadow: 5px 5px 50px grey;
+  position: relative;
+}
+
+.image-container {
+  width: 1000px;
+  height: 400px;
+  z-index: 2;
+}
+
+img {
+  display: none;
+  width: inherit;
+  height: inherit;
+  object-fit: fill;
+}
+
+.image.activeImage {
+  display: block;
+}
+
+.nav-arrow {
+  display: block;
+  height: 80px;
+  width: 80px;
+  z-index: 4;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#carousel-container:hover {
+  > .nav-arrow,
+  #bottom-nav {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  }
+}
+
+#left-arrow {
+  position: absolute;
+  left: 20px;
+  top: 42%;
+}
+
+#right-arrow {
+  position: absolute;
+  right: 20px;
+  top: 42%;
+}
+
+.arrow {
+  display: block;
+  z-index: 4;
+}
+
+#bottom-nav {
+  position: absolute;
+  top: 90%;
+  left: 45%;
+  width: 50px;
+  height: 15px;
+  z-index: 4;
+  display: flex;
+  gap: 5px;
+  opacity: 0;
+}
+
+.nav {
+  display: block;
+  cursor: pointer;
+}
