@@ -1,0 +1,8 @@
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
+github.copilot
+github.copilot-chat
+monish.regexsnippets
+ritwickdey.liveserver
+wallabyjs.quokka-vscode
+zhuangtongfa.material-theme
