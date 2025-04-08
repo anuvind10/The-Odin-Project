@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      img {
+        max-height: 300px;
+        max-width: 300px;
+      }
+
+      #searchDiv {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="searchDiv">
+      <label for="search">Search</label> <input type="text" id="searchText" />
+      <button id="searchBtn">Search</button>
+    </div>
+    <p id="message"></p>
+    <img src="#" />
+    <button id="refreshBtn">Refresh</button>
+    <script>
+      const img = document.querySelector("img");
+      const refreshBtn = document.querySelector("#refreshBtn");
+      const searchBtn = document.querySelector("#searchBtn");
+      const searchText = document.querySelector("#searchText");
+      const message = document.querySelector("#message");
+
+      refreshBtn.addEventListener("click", () => {
+        fetchImage(searchText.value.trim());
+      });
+      searchBtn.addEventListener("click", () => {
+        fetchImage(searchText.value.trim());
+      });
+
+      async function fetchImage(searchText) {
+        if (searchText != "") {
+          message.innerHTML = "Loading...";
+          const url = `https://api.giphy.com/v1/gifs/translate?api_key=wDjsWWC7bh3ZFiw4XAbuPvPzN72gatEV&s=${searchText}`;
+
+          try {
+            const response = await fetch(url, { mode: "cors" });
+            if (!response.ok) {
+              throw new Error(`Response Status: ${response.status}`);
+            }
+            const jsonFile = await response.json();
+            if (jsonFile.data.length != 0) {
+              updateImage(jsonFile.data.images.original.url);
+            } else {
+              throw new Error("No Gifs found");
+            }
+          } catch (error) {
+            alert(error.message);
+            message.innerHTML = "";
+          }
+        } else {
+          alert("Search cannot be empty");
+        }
+      }
+
+      function updateImage(source) {
+        img.src = source;
+        message.innerHTML = "";
+      }
+      fetchImage("random");
+    </script>
+  </body>
+</html>
