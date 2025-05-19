@@ -15,5 +15,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 let test = new tree([0, 1, 5, 10, 2, 6, 1, 3, 2, 15]);
 let rootNode = test.buildTree([0, 1, 5, 10, 2, 6, 1, 3, 2, 15]);
-
+console.log(rootNode);
 prettyPrint(rootNode);

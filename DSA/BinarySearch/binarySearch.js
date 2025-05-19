@@ -12,7 +12,6 @@ export class tree {
   constructor(array) {
     this.array = array;
     this.root = null;
-    this.nodeCount = 0;
   }
 
   buildTree(array) {
@@ -23,9 +22,9 @@ export class tree {
     let endIndex = array.length - 1;
     if (startIndex > endIndex || array.length === 0) return null;
 
-    let midIndex = Math.floor((startIndex + endIndex) / 2);
-    let leftArray = array.slice(0, midIndex);
-    let rightArray = array.slice(midIndex + 1, array.length);
+    const midIndex = Math.floor((startIndex + endIndex) / 2);
+    const leftArray = array.slice(0, midIndex);
+    const rightArray = array.slice(midIndex + 1, array.length);
 
     let treeNode = new Node(
       array[midIndex],
@@ -33,12 +32,7 @@ export class tree {
       this.buildTree(rightArray)
     );
 
-    if (this.nodeCount === 0) {
-      this.root = treeNode;
-    }
-
-    this.nodeCount++;
-
-    return treeNode;
+    this.root = treeNode;
+    return this.root;
   }
 }
