@@ -1,7 +1,7 @@
 import { mergeSort, removeDuplicate } from "./arrayOperations.js";
 
 class Node {
-  constructor(data, left, right) {
+  constructor(data, left = null, right = null) {
     this.data = data;
     this.left = left;
     this.right = right;
@@ -10,21 +10,16 @@ class Node {
 
 export class tree {
   constructor(array) {
-    this.array = array;
-    this.root = null;
+    const cleanArry = removeDuplicate(mergeSort(array));
+    this.root = this.buildTree(cleanArry);
   }
 
   buildTree(array) {
-    array = mergeSort(array);
-    array = removeDuplicate(array);
+    if (array.length === 0) return null;
+    const midIndex = Math.floor(array.length / 2);
 
-    let startIndex = 0;
-    let endIndex = array.length - 1;
-    if (startIndex > endIndex || array.length === 0) return null;
-
-    const midIndex = Math.floor((startIndex + endIndex) / 2);
     const leftArray = array.slice(0, midIndex);
-    const rightArray = array.slice(midIndex + 1, array.length);
+    const rightArray = array.slice(midIndex + 1);
 
     let treeNode = new Node(
       array[midIndex],
@@ -32,7 +27,91 @@ export class tree {
       this.buildTree(rightArray)
     );
 
-    this.root = treeNode;
-    return this.root;
+    return treeNode;
+  }
+
+  insert(value) {
+    let newNode = new Node(value);
+    let currentNode = this.root;
+    let nodeDirection;
+
+    if (!this.root) {
+      this.root = newNode;
+      return;
+    }
+
+    while (currentNode) {
+      if (value < currentNode.data) {
+        nodeDirection = "left";
+        if (currentNode.left) {
+          currentNode = currentNode.left;
+        } else break;
+        nodeDirection = "left";
+      } else if (value > currentNode.data) {
+        nodeDirection = "right";
+        if (currentNode.right) {
+          currentNode = currentNode.right;
+        } else break;
+      } else if (value === currentNode.data) {
+        return;
+      }
+    }
+
+    if (nodeDirection === "left") {
+      currentNode.left = newNode;
+    } else {
+      currentNode.right = newNode;
+    }
+  }
+
+  deleteItem(value) {
+    let currentNode = this.root;
+    let previousNode;
+    let nextNode;
+    let nodeDirection;
+
+    if (this.root.left === null && this.root.right === null) {
+      this.root = null;
+      return;
+    }
+
+    while (currentNode) {
+      if (currentNode.data === value) {
+        // node that does not have a child
+        if (currentNode.left === null && currentNode.right === null) {
+          if (nodeDirection === "left") {
+            previousNode.left = null;
+          } else {
+            previousNode.right = null;
+          }
+          return;
+        }
+        // Has one child
+        else if (currentNode.left === null) {
+          nextNode = currentNode.right;
+          previousNode.right = nextNode;
+        } else if (currentNode.right === null) {
+          nextNode = currentNode.left;
+        }
+        // Has both childs
+        else {
+          return;
+        }
+        if (nodeDirection === "left") {
+          previousNode.left = nextNode;
+        } else {
+          previousNode.right = nextNode;
+        }
+        return;
+      } else if (value < currentNode.data) {
+        nodeDirection = "left";
+        previousNode = currentNode;
+        currentNode = currentNode.left;
+      } else {
+        nodeDirection = "right";
+        previousNode = currentNode;
+        currentNode = currentNode.right;
+      }
+    }
   }
 }
