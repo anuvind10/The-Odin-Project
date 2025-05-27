@@ -32,4 +32,10 @@ console.log("Level Order Traversal: ");
 test.levelOrder((node) => console.log(node));
 
 console.log("In Order Traversal: ");
-test.inorder((node) => console.log(node));
+test.inOrder((node) => console.log(node));
+
+console.log("Pre Order Traversal: ");
+test.preOrder((node) => console.log(node));
+
+console.log("Post Order Traversal: ");
+test.postOrder((node) => console.log(node));
