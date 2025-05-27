@@ -116,6 +116,8 @@ export class tree {
   }
 
   find(value) {
+    if (!this.root) return;
+
     let currentNode = this.root;
 
     while (currentNode) {
@@ -131,5 +133,22 @@ export class tree {
     }
 
     return "Not Found";
+  }
+
+  levelOrder(callback) {
+    if (!this.root) return;
+
+    let queue = [this.root];
+
+    if (!callback) {
+      throw new Error("Callback Function is required");
+    }
+
+    while (queue.length > 0) {
+      const node = queue.shift();
+      callback(node);
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
   }
 }

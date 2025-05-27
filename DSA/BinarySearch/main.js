@@ -27,3 +27,6 @@ prettyPrint(test.root);
 
 console.log("Finding 45");
 console.log(test.find(45));
+
+console.log("Level Order Traversal: ");
+test.levelOrder((node) => console.log(node));
