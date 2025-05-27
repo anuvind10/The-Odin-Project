@@ -24,3 +24,6 @@ prettyPrint(test.root);
 console.log("Removing 7:");
 test.deleteItem(7);
 prettyPrint(test.root);
+
+console.log("Finding 45");
+console.log(test.find(45));

@@ -114,4 +114,22 @@ export class tree {
       }
     }
   }
+
+  find(value) {
+    let currentNode = this.root;
+
+    while (currentNode) {
+      if (currentNode.data == value) {
+        return currentNode;
+      }
+
+      if (value < currentNode.data) {
+        currentNode = currentNode.left;
+      } else if (value > currentNode.data) {
+        currentNode = currentNode.right;
+      }
+    }
+
+    return "Not Found";
+  }
 }
