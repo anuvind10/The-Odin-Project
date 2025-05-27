@@ -151,4 +151,21 @@ export class tree {
       if (node.right) queue.push(node.right);
     }
   }
+
+  inorder(callback) {
+    if (!this.root) return;
+    if (!callback) {
+      throw new Error("Callback Function is required");
+    }
+
+    function traverse(node) {
+      if (!node) return;
+
+      traverse(node.left);
+      callback(node);
+      traverse(node.right);
+    }
+
+    traverse(this.root);
+  }
 }

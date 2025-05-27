@@ -30,3 +30,6 @@ console.log(test.find(45));
 
 console.log("Level Order Traversal: ");
 test.levelOrder((node) => console.log(node));
+
+console.log("In Order Traversal: ");
+test.inorder((node) => console.log(node));
