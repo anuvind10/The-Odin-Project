@@ -132,7 +132,7 @@ export class tree {
       }
     }
 
-    return "Not Found";
+    return null;
   }
 
   levelOrder(callback) {
@@ -204,11 +204,10 @@ export class tree {
   }
 
   height(value) {
-    let result = this.find(value);
-    let node;
-    if (result == "Not Found") {
-      return result;
-    } else node = result;
+    let node = this.find(value);
+    if (!node) {
+      return node;
+    }
 
     // leaf node
     if (!node.left && !node.right) return 0;
@@ -223,4 +222,28 @@ export class tree {
 
     return traverse(node);
   }
+
+  depth(value) {
+    let node = this.find(value);
+    if (!node) {
+      return null;
+    }
+
+    let depth = 0;
+    let currentNode = this.root;
+    while (currentNode) {
+      if (currentNode.data == value) {
+        return depth;
+      }
+
+      if (value < currentNode.data) {
+        currentNode = currentNode.left;
+      } else if (value > currentNode.data) {
+        currentNode = currentNode.right;
+      }
+      depth++;
+    }
+  }
+
+  isBalanced() {}
 }
