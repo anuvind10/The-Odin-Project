@@ -266,6 +266,7 @@ export class tree {
     let sortedArray = [];
 
     this.inOrder((node) => sortedArray.push(node));
-    return this.buildTree(sortedArray);
+    this.root = this.buildTree(sortedArray);
+    return;
   }
 }

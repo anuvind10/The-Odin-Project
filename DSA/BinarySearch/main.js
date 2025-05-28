@@ -13,38 +13,73 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-let test = new tree([34, 7, 23, 7, 90, 45, 12, 90, 18, 61, 34, 5]);
-console.log(test);
-prettyPrint(test.root);
+function randomArray(size) {
+  let array = [];
+  for (let i = 0; i < size; i++) {
+    array.push(Math.floor(Math.random() * 100) + 1);
+  }
 
-console.log("Inserting 20 into the tree:");
-test.insert(20);
-prettyPrint(test.root);
+  console.log(array);
+  return array;
+}
 
-console.log("Removing 7:");
-test.deleteItem(7);
-prettyPrint(test.root);
+let BinaryTree = new tree(randomArray(15));
+prettyPrint(BinaryTree.root);
+console.log("Tree is balanced: " + BinaryTree.isBalanced());
 
-console.log("Finding 45");
-console.log(test.find(45));
+let levelOrder = [];
+console.log("Level Order: ");
+BinaryTree.levelOrder((data) => levelOrder.push(data));
+console.log(levelOrder);
 
-console.log("Level Order Traversal: ");
-test.levelOrder((node) => console.log(node));
+let preOrder = [];
+console.log("Pre Order: ");
+BinaryTree.preOrder((data) => preOrder.push(data));
+console.log(preOrder);
 
-console.log("In Order Traversal: ");
-test.inOrder((node) => console.log(node));
+let postOrder = [];
+console.log("Post Order: ");
+BinaryTree.postOrder((data) => postOrder.push(data));
+console.log(postOrder);
 
-console.log("Pre Order Traversal: ");
-test.preOrder((node) => console.log(node));
+let inOrder = [];
+console.log("In Order: ");
+BinaryTree.inOrder((data) => inOrder.push(data));
+console.log(inOrder);
 
-console.log("Post Order Traversal: ");
-test.postOrder((node) => console.log(node));
+console.log("Adding more data to unbalance the tree...");
 
-console.log("Height of 12: " + test.height(12));
+for (let i = 0; i <= 5; i++) {
+  BinaryTree.insert(Math.floor(Math.random() * 100) + 1);
+}
 
-console.log("Depth of 45: " + test.depth(45));
+console.log("New Tree:");
+prettyPrint(BinaryTree.root);
 
-console.log("Tree is balanced: " + test.isBalanced());
+console.log("Tree is balanced: " + BinaryTree.isBalanced());
 
-let rebalancedArray = test.rebalance();
-prettyPrint(rebalancedArray);
+console.log("Rebalancing...");
+BinaryTree.rebalance();
+prettyPrint(BinaryTree.root);
+
+console.log("Tree is balanced: " + BinaryTree.isBalanced());
+
+levelOrder = [];
+console.log("Level Order: ");
+BinaryTree.levelOrder((data) => levelOrder.push(data));
+console.log(levelOrder);
+
+preOrder = [];
+console.log("Pre Order: ");
+BinaryTree.preOrder((data) => preOrder.push(data));
+console.log(preOrder);
+
+postOrder = [];
+console.log("Post Order: ");
+BinaryTree.postOrder((data) => postOrder.push(data));
+console.log(postOrder);
+
+inOrder = [];
+console.log("In Order: ");
+BinaryTree.inOrder((data) => inOrder.push(data));
+console.log(inOrder);
