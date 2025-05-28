@@ -146,7 +146,7 @@ export class tree {
 
     while (queue.length > 0) {
       const node = queue.shift();
-      callback(node);
+      callback(node.data);
       if (node.left) queue.push(node.left);
       if (node.right) queue.push(node.right);
     }
@@ -162,7 +162,7 @@ export class tree {
       if (!node) return;
 
       traverse(node.left);
-      callback(node);
+      callback(node.data);
       traverse(node.right);
     }
 
@@ -178,7 +178,7 @@ export class tree {
     function traverse(node) {
       if (!node) return;
 
-      callback(node);
+      callback(node.data);
       traverse(node.left);
       traverse(node.right);
     }
@@ -197,7 +197,7 @@ export class tree {
 
       traverse(node.left);
       traverse(node.right);
-      callback(node);
+      callback(node.data);
     }
 
     traverse(this.root);
@@ -206,21 +206,20 @@ export class tree {
   height(value) {
     let node = this.find(value);
     if (!node) {
-      return node;
+      return null;
     }
 
     // leaf node
-    if (!node.left && !node.right) return 0;
-    function traverse(node) {
+    function getHeight(node) {
       if (!node) return -1;
 
-      const leftHeight = traverse(node.left);
-      const rightheight = traverse(node.right);
+      const leftHeight = getHeight(node.left);
+      const rightheight = getHeight(node.right);
 
       return 1 + Math.max(leftHeight, rightheight);
     }
 
-    return traverse(node);
+    return getHeight(node);
   }
 
   depth(value) {
@@ -245,5 +244,28 @@ export class tree {
     }
   }
 
-  isBalanced() {}
+  isBalanced() {
+    function checkHeight(node) {
+      if (!node) return 0;
+
+      const leftHeight = checkHeight(node.left);
+      if (leftHeight === -1) return -1; // left subtree not balanced
+
+      const rightHeight = checkHeight(node.right);
+      if (rightHeight === -1) return -1; // right subtree not balanced
+
+      if (Math.abs(leftHeight - rightHeight) > 1) return -1; // not balanced
+
+      return 1 + Math.max(leftHeight, rightHeight);
+    }
+
+    return checkHeight(this.root) !== -1;
+  }
+
+  rebalance() {
+    let sortedArray = [];
+
+    this.inOrder((node) => sortedArray.push(node));
+    return this.buildTree(sortedArray);
+  }
 }

@@ -43,3 +43,8 @@ test.postOrder((node) => console.log(node));
 console.log("Height of 12: " + test.height(12));
 
 console.log("Depth of 45: " + test.depth(45));
+
+console.log("Tree is balanced: " + test.isBalanced());
+
+let rebalancedArray = test.rebalance();
+prettyPrint(rebalancedArray);
