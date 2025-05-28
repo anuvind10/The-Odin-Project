@@ -202,4 +202,25 @@ export class tree {
 
     traverse(this.root);
   }
+
+  height(value) {
+    let result = this.find(value);
+    let node;
+    if (result == "Not Found") {
+      return result;
+    } else node = result;
+
+    // leaf node
+    if (!node.left && !node.right) return 0;
+    function traverse(node) {
+      if (!node) return -1;
+
+      const leftHeight = traverse(node.left);
+      const rightheight = traverse(node.right);
+
+      return 1 + Math.max(leftHeight, rightheight);
+    }
+
+    return traverse(node);
+  }
 }

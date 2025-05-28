@@ -39,3 +39,5 @@ test.preOrder((node) => console.log(node));
 
 console.log("Post Order Traversal: ");
 test.postOrder((node) => console.log(node));
+
+console.log("Height of 12: " + test.height(23));
