@@ -31,24 +31,27 @@ export class tree {
   }
 
   insert(value) {
+    const LEFT = 1;
+    const RIGHT = 2;
     let newNode = new Node(value);
-    let currentNode = this.root;
-    let nodeDirection;
 
+    // If it's the first value
     if (!this.root) {
       this.root = newNode;
       return;
     }
 
+    let currentNode = this.root;
+    let nodeDirection;
+
     while (currentNode) {
       if (value < currentNode.data) {
-        nodeDirection = "left";
+        nodeDirection = LEFT;
         if (currentNode.left) {
           currentNode = currentNode.left;
         } else break;
-        nodeDirection = "left";
       } else if (value > currentNode.data) {
-        nodeDirection = "right";
+        nodeDirection = RIGHT;
         if (currentNode.right) {
           currentNode = currentNode.right;
         } else break;
@@ -57,7 +60,7 @@ export class tree {
       }
     }
 
-    if (nodeDirection === "left") {
+    if (nodeDirection === LEFT) {
       currentNode.left = newNode;
     } else {
       currentNode.right = newNode;
@@ -65,13 +68,14 @@ export class tree {
   }
 
   deleteItem(value) {
+    const LEFT = 1;
+    const RIGHT = 2;
     let currentNode = this.root;
     let previousNode;
     let nextNode;
     let nodeDirection;
 
-    if (this.root.left === null && this.root.right === null) {
-      this.root = null;
+    if (!currentNode) {
       return;
     }
 
@@ -79,7 +83,11 @@ export class tree {
       if (currentNode.data === value) {
         // node that does not have a child
         if (currentNode.left === null && currentNode.right === null) {
-          if (nodeDirection === "left") {
+          if (currentNode == this.root) {
+            this.root = null;
+            return;
+          }
+          if (nodeDirection === LEFT) {
             previousNode.left = null;
           } else {
             previousNode.right = null;
@@ -88,27 +96,47 @@ export class tree {
         }
         // Has one child
         else if (currentNode.left === null) {
-          nextNode = currentNode.right;
-          previousNode.right = nextNode;
+          if (currentNode == this.root) {
+            this.root = currentNode.right;
+            this.root.right = null;
+          } else {
+            currentNode.data = currentNode.right.data;
+            currentNode.right = null;
+          }
+          return;
         } else if (currentNode.right === null) {
-          nextNode = currentNode.left;
+          if (currentNode == this.root) {
+            this.root = currentNode.left;
+            this.root.left = null;
+          } else {
+            currentNode.data = currentNode.left.data;
+            currentNode.left = null;
+          }
+          return;
         }
         // Has both childs
         else {
+          let node = currentNode.right;
+          let previousNode;
+          while (node) {
+            if (node.right === null && node.left === null) {
+              currentNode.data = node.data;
+              previousNode === currentNode
+                ? (previousNode.right = null)
+                : (previousNode.left = null);
+              return;
+            }
+            previousNode = node;
+            node = node.left;
+          }
           return;
         }
-        if (nodeDirection === "left") {
-          previousNode.left = nextNode;
-        } else {
-          previousNode.right = nextNode;
-        }
-        return;
       } else if (value < currentNode.data) {
-        nodeDirection = "left";
+        nodeDirection = LEFT;
         previousNode = currentNode;
         currentNode = currentNode.left;
       } else {
-        nodeDirection = "right";
+        nodeDirection = RIGHT;
         previousNode = currentNode;
         currentNode = currentNode.right;
       }

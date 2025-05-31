@@ -83,3 +83,9 @@ inOrder = [];
 console.log("In Order: ");
 BinaryTree.inOrder((data) => inOrder.push(data));
 console.log(inOrder);
+
+let test = new tree([50, 30, 70, 20, 40, 60, 80, 32, 65, 75, 85, 34, 36]);
+prettyPrint(test.root);
+
+test.deleteItem(50);
+prettyPrint(test.root);
