@@ -1,4 +1,4 @@
-import { tree } from "./binarySearch.js";
+import { Tree } from "./binarySearch.js";
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
@@ -23,7 +23,7 @@ function randomArray(size) {
   return array;
 }
 
-let BinaryTree = new tree(randomArray(15));
+let BinaryTree = new Tree(randomArray(15));
 prettyPrint(BinaryTree.root);
 console.log("Tree is balanced: " + BinaryTree.isBalanced());
 
@@ -84,8 +84,6 @@ console.log("In Order: ");
 BinaryTree.inOrder((data) => inOrder.push(data));
 console.log(inOrder);
 
-let test = new tree([50, 30, 70, 20, 40, 60, 80, 32, 65, 75, 85, 34, 36]);
-prettyPrint(test.root);
-
-test.deleteItem(50);
-prettyPrint(test.root);
+console.log("Removing " + BinaryTree.root.data);
+BinaryTree.deleteItem(BinaryTree.root.data);
+prettyPrint(BinaryTree.root);

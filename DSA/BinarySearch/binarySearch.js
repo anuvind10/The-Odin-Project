@@ -8,7 +8,7 @@ class Node {
   }
 }
 
-export class tree {
+export class Tree {
   constructor(array) {
     const cleanArry = removeDuplicate(mergeSort(array));
     this.root = this.buildTree(cleanArry);
@@ -95,40 +95,34 @@ export class tree {
           return;
         }
         // Has one child
-        else if (currentNode.left === null) {
+        else if (currentNode.left === null || currentNode.right === null) {
+          const childNode = currentNode.left || currentNode.right;
+
           if (currentNode == this.root) {
-            this.root = currentNode.right;
-            this.root.right = null;
+            this.root = childNode;
+          } else if (nodeDirection === LEFT) {
+            previousNode.left = childNode;
           } else {
-            currentNode.data = currentNode.right.data;
-            currentNode.right = null;
-          }
-          return;
-        } else if (currentNode.right === null) {
-          if (currentNode == this.root) {
-            this.root = currentNode.left;
-            this.root.left = null;
-          } else {
-            currentNode.data = currentNode.left.data;
-            currentNode.left = null;
+            previousNode.right = childNode;
           }
           return;
         }
         // Has both childs
         else {
-          let node = currentNode.right;
-          let previousNode;
-          while (node) {
-            if (node.right === null && node.left === null) {
-              currentNode.data = node.data;
-              previousNode === currentNode
-                ? (previousNode.right = null)
-                : (previousNode.left = null);
-              return;
-            }
-            previousNode = node;
-            node = node.left;
+          let successorParent = currentNode;
+          let successor = currentNode.right;
+          while (successor.left) {
+            successorParent = successor;
+            successor = successor.left;
           }
+
+          currentNode.data = successor.data;
+          if (successorParent.left === successor) {
+            successorParent.left = successor.right;
+          } else {
+            successorParent.right = successor.right;
+          }
+
           return;
         }
       } else if (value < currentNode.data) {
