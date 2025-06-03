@@ -291,4 +291,46 @@ export class Tree {
     this.root = this.buildTree(sortedArray);
     return;
   }
+
+  // Finds the least common ancestor between the 2 values
+  findLCA(node, value1, value2) {
+    if (!node) return null;
+
+    if (value1 < node.data && value2 < node.data) {
+      return this.findLCA(node.left, value1, value2);
+    } else if (value1 > node.data && value2 > node.data) {
+      return this.findLCA(node.right, value1, value2);
+    } else return node;
+  }
+
+  // finds the depth of the target value from the LCA
+  bfsDepth(startNnode, targetValue) {
+    let queue = [{ node: startNnode, depth: 0 }];
+
+    while (queue.length > 0) {
+      const { node, depth } = queue.shift();
+
+      if (node.data === targetValue) return depth;
+
+      if (node.left) {
+        queue.push({ node: node.left, depth: depth + 1 });
+      }
+      if (node.right) {
+        queue.push({ node: node.right, depth: depth + 1 });
+      }
+    }
+
+    return -1;
+  }
+
+  // Finds the distance between 2 nodes
+  findDistanceBetween(value1, value2) {
+    const LCA = this.findLCA(this.root, value1, value2);
+    if (!LCA) return -1;
+
+    const depth1 = this.bfsDepth(LCA, value1);
+    const depth2 = this.bfsDepth(LCA, value2);
+
+    return depth1 + depth2;
+  }
 }
